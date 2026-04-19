@@ -10,12 +10,22 @@ import {
   LogOut,
   ChevronDown,
   ChevronRight,
-  Zap
+  Zap,
+  Image,
+  Radar,
+  AlertTriangle,
+  Clock,
+  FileCheck
 } from 'lucide-react';
 
 const menuItems = [
   { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
   { name: 'Scans', icon: Shield, path: '/scans' },
+  { name: 'Images', icon: Image, path: '/images' },
+  { name: 'Attack Surface', icon: Radar, path: '/attack-surface' },
+  { name: 'Threat Intel', icon: AlertTriangle, path: '/threat-intel' },
+  { name: 'Scheduled Pentest', icon: Clock, path: '/scheduled-pentest' },
+  { name: 'Audit Reports', icon: FileCheck, path: '/audit-reports' },
   { name: 'Reports', icon: FileText, path: '/reports' },
   { name: 'Activity', icon: Activity, path: '/activity' },
   { name: 'Settings', icon: Settings, path: '/settings' },

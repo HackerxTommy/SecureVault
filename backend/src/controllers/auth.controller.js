@@ -75,3 +75,38 @@ export const getMe = async (req, res) => {
     user: req.user
   });
 };
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password');
+    res.json({
+      success: true,
+      user
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  res.json({
+    success: true,
+    message: 'Logged out successfully'
+  });
+};
+
+export const googleAuthCallback = async (req, res) => {
+  try {
+    const token = jwt.sign({ id: req.user._id }, config.JWT_SECRET, {
+      expiresIn: config.JWT_EXPIRY
+    });
+
+    // Redirect to frontend with token
+    res.redirect(`${config.FRONTEND_URL}/auth?token=${token}`);
+  } catch (error) {
+    res.redirect(`${config.FRONTEND_URL}/auth?error=auth_failed`);
+  }
+};

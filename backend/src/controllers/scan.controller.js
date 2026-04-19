@@ -5,7 +5,7 @@ import Finding from '../models/Finding.js';
 
 export const createScan = async (req, res) => {
   try {
-    const { targetUrl, targetType, scanMode, useCloud = false } = req.body;
+    const { targetUrl, targetType, scanMode } = req.body;
     const userId = req.user._id;
 
     if (!targetUrl) {
@@ -15,35 +15,7 @@ export const createScan = async (req, res) => {
       });
     }
 
-    let scan;
-    
-    if (useCloud) {
-      // Use cloud-based reconnaissance
-      const response = await dockerReconService.runRecon(targetUrl, { phase: 'all' });
-      const results = response.results || response;
-
-      scan = await Scan.create({
-        userId,
-        targetUrl: targetUrl,
-        targetType: targetType || 'web',
-        scanMode: scanMode || 'standard',
-        status: 'completed',
-        progress: 100,
-        findings: [],
-        statistics: {
-          totalFindings: results.vulnerabilities?.length || 0,
-          criticalCount: results.vulnerabilities?.filter(v => v.severity === 'critical')?.length || 0,
-          highCount: results.vulnerabilities?.filter(v => v.severity === 'high')?.length || 0,
-          mediumCount: results.vulnerabilities?.filter(v => v.severity === 'medium')?.length || 0,
-          lowCount: results.vulnerabilities?.filter(v => v.severity === 'low')?.length || 0
-        },
-        duration: 0,
-        dockerResults: results
-      });
-    } else {
-      // Use in-memory scan service
-      scan = await scanService.createScan(userId, targetUrl, targetType || 'web', scanMode || 'standard');
-    }
+    const scan = await scanService.createScan(userId, targetUrl, targetType || 'web', scanMode || 'standard');
 
     res.status(201).json({
       success: true,

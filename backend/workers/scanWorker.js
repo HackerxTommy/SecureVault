@@ -7,7 +7,7 @@ import connectDB from '../src/config/database.js';
 await connectDB();
 
 scanQueue.process(async (job) => {
-  const { scanId, targetUrl, targetType } = job.data;
+  const { scanId, targetUrl, targetType, scanMode } = job.data;
   
   console.log(`[WORKER] Processing scan ${scanId}`);
   

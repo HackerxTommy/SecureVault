@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import config from './src/config/env.js';
 import connectDB from './src/config/database.js';
+import passport from './src/config/googleAuth.js';
 import authRoutes from './src/routes/auth.routes.js';
 import scanRoutes from './src/routes/scan.routes.js';
 import reconRoutes from './src/routes/recon.routes.js';
@@ -19,14 +20,19 @@ const app = express();
 await connectDB();
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(cors({
   origin: ['http://localhost:5176', 'http://localhost:5174', 'http://localhost:5175'],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(passport.initialize());
 
 // Health check
 app.get('/health', (req, res) => {

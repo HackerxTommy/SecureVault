@@ -4,15 +4,32 @@ import bcrypt from 'bcryptjs';
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
     lowercase: true,
     trim: true
   },
   password: {
     type: String,
-    required: true,
+    required: false,
     minlength: 6
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
+  name: {
+    type: String,
+    default: ''
+  },
+  avatar: {
+    type: String,
+    default: ''
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
   },
   role: {
     type: String,
