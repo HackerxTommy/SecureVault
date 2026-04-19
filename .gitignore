@@ -10,3 +10,13 @@ MongoDB_Whitelist_Guide.md
 README.md
 RENDER_Deployment_Guide.md
 WORKFLOW.md
+CLOUD_DEPLOYMENT.md
+frontend/node_modules
+backend/node_modules
+frontend/dist
+backend/dist
+fly.toml
+railway.json
+README.md
+render.yaml
+node_modules
