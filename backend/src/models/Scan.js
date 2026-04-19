@@ -12,12 +12,12 @@ const scanSchema = new mongoose.Schema({
   },
   targetType: {
     type: String,
-    enum: ['web', 'api', 'repo'],
+    enum: ['web', 'api', 'repo', 'pr'],
     required: true
   },
   scanMode: {
     type: String,
-    enum: ['quick', 'standard', 'deep'],
+    enum: ['quick', 'standard', 'deep', 'whitebox', 'blackbox'],
     default: 'standard'
   },
   status: {
@@ -54,6 +54,15 @@ const scanSchema = new mongoose.Schema({
     type: String,
     enum: ['dashboard', 'webhook', 'api'],
     default: 'dashboard'
+  },
+  options: {
+    enableOAuth: { type: Boolean, default: false },
+    enableAttackSurface: { type: Boolean, default: false },
+    enableThreatIntel: { type: Boolean, default: false },
+    scheduleScan: { type: Boolean, default: false },
+    scheduleInterval: { type: String, default: 'daily' },
+    sessionAnalysis: { type: Boolean, default: false },
+    cookieAnalysis: { type: Boolean, default: false }
   }
 }, {
   timestamps: true

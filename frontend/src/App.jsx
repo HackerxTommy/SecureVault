@@ -9,6 +9,11 @@ import Auth from './pages/Auth';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import Scans from './pages/Scans';
+import Images from './pages/Images';
+import AttackSurface from './pages/AttackSurface';
+import ThreatIntel from './pages/ThreatIntel';
+import ScheduledPentest from './pages/ScheduledPentest';
+import AuditReports from './pages/AuditReports';
 import Reports from './pages/Reports';
 import Activity from './pages/Activity';
 import Settings from './pages/Settings';
@@ -93,6 +98,46 @@ function App() {
             element={
               <PrivateRoute>
                 <Scans />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/images"
+            element={
+              <PrivateRoute>
+                <Images />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/attack-surface"
+            element={
+              <PrivateRoute>
+                <AttackSurface />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/threat-intel"
+            element={
+              <PrivateRoute>
+                <ThreatIntel />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/scheduled-pentest"
+            element={
+              <PrivateRoute>
+                <ScheduledPentest />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/audit-reports"
+            element={
+              <PrivateRoute>
+                <AuditReports />
               </PrivateRoute>
             }
           />

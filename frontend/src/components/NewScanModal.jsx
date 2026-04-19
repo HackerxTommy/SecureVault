@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { X, Globe, Database, Code, Zap, Shield, Search } from 'lucide-react';
+import { X, Globe, Database, Code, Zap, Shield, Search, GitPullRequest } from 'lucide-react';
 
 const scanTypes = [
   { id: 'web', icon: Globe, label: 'Web Application', desc: 'Scan web applications for vulnerabilities' },
   { id: 'api', icon: Database, label: 'API Endpoint', desc: 'Test API endpoints for security issues' },
   { id: 'repo', icon: Code, label: 'Code Repository', desc: 'Analyze code for security flaws' },
+  { id: 'pr', icon: GitPullRequest, label: 'PR Security Review', desc: 'Review pull requests for security issues' },
 ];
 
 const scanModes = [
   { id: 'quick', icon: Zap, label: 'Quick Scan', desc: 'Fast scan for common vulnerabilities', time: '2-5 min' },
   { id: 'standard', icon: Shield, label: 'Standard Scan', desc: 'Comprehensive security assessment', time: '10-15 min' },
   { id: 'deep', icon: Search, label: 'Deep Scan', desc: 'Thorough analysis with advanced checks', time: '30-45 min' },
+  { id: 'whitebox', icon: Code, label: 'Whitebox Testing', desc: 'Source code analysis with credentials', time: '20-30 min' },
+  { id: 'blackbox', icon: Shield, label: 'Blackbox Testing', desc: 'External penetration testing', time: '15-25 min' },
 ];
 
 export default function NewScanModal({ isOpen, onClose, onScanCreate }) {
@@ -22,7 +25,11 @@ export default function NewScanModal({ isOpen, onClose, onScanCreate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onScanCreate({ targetUrl, targetType: selectedType, scanMode: selectedMode });
+    onScanCreate({ 
+      targetUrl, 
+      targetType: selectedType, 
+      scanMode: selectedMode
+    });
     onClose();
   };
 

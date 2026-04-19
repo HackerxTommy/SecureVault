@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const { data } = await authAPI.getMe();
+      const { data } = await authAPI.getProfile();
       setUser(data.user);
     } catch (error) {
       localStorage.removeItem('token');
@@ -47,8 +47,23 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const setToken = async (token) => {
+    console.log('AuthContext setToken - setting token:', token.substring(0, 20) + '...');
+    localStorage.setItem('token', token);
+    try {
+      console.log('AuthContext setToken - calling getProfile API');
+      const { data } = await authAPI.getProfile();
+      console.log('AuthContext setToken - getProfile response:', data);
+      setUser(data.user);
+      console.log('AuthContext setToken - user set successfully');
+    } catch (error) {
+      console.error('AuthContext setToken - error calling getProfile:', error);
+      localStorage.removeItem('token');
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading, setToken }}>
       {children}
     </AuthContext.Provider>
   );
