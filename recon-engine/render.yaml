@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: securevault-recon-engine
+    env: docker
+    plan: free
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: SHODAN_API_KEY
+        sync: false
+      - key: VIRUSTOTAL_API_KEY
+        sync: false
